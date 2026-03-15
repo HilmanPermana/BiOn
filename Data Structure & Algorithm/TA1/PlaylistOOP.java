@@ -5,7 +5,7 @@ Nama Kelompok :
 1. Arti Suryaning Tyas - (NIM)
 2. Alviyan Syafriansyah Matondang - (NIM)
 3. Hilman Permana - 2902727532
-4. Andika - (NIM)
+4. Andika Indra Kirana - 2602204405
 
 Program : Sistem Manajemen Playlist Musik
 ====================================================
@@ -110,7 +110,30 @@ class User {
         System.out.println("--------------------------");
     }
 }
+// Class Admin sebagai turunan dari User
+class Admin extends User {
 
+    public Admin(String nama, String email, String password) {
+        super(nama, email, password, "Admin");
+    }
+    // Override method dari class User
+    @Override
+    public void tampilkanAkses(){
+        System.out.println("Admin memiliki akses untuk menambahkan lagu.");
+    }
+
+    // Method menambahkan lagu
+    public void tambahLagu(Lagu[] playlist, Lagu laguBaru, int index) {
+
+        if (index < playlist.length) {
+            playlist[index] = laguBaru;
+            System.out.println("Admin menambahkan lagu: " + laguBaru.getJudul());
+        } else {
+            System.out.println("Playlist sudah penuh.");
+        }
+
+    }
+}
 
 // Class utama untuk menjalankan program
 public class PlaylistOOP {
@@ -118,7 +141,7 @@ public class PlaylistOOP {
     public static void main(String[] args) {
 
         // Array untuk menyimpan kumpulan lagu (playlist)
-        Lagu[] playlist = new Lagu[5];
+        Lagu[] playlist = new Lagu[7];
 
         // Menambahkan lagu ke dalam playlist
         playlist[0] = new Lagu("Hati-Hati di Jalan", "Tulus", 4.2);
@@ -127,11 +150,22 @@ public class PlaylistOOP {
         playlist[3] = new Lagu("Tak Segampang Itu", "Anggi Marito", 4.1);
         playlist[4] = new Lagu("Melukis Senja", "Budi Doremi", 4.3);
 
+        // Admin menambahkan lagu
+        Admin admin = new Admin("Admin", "Admin@gmail.com", "123");
+        
+        admin.tampilkanAkses();
+        
+        admin.tambahLagu(playlist, new Lagu("Evaluasi", "Hindia", 4.5),5);
+        admin.tambahLagu(playlist, new Lagu("Blue", "Yung kai", 3.8),6);
+        System.out.println();
+
         // Menampilkan semua lagu dalam playlist
         System.out.println("=== PLAYLIST LAGU ===");
 
         for (int i = 0; i < playlist.length; i++) {
-            playlist[i].tampilkanInfo();
+            if (playlist[i] != null) {
+                playlist[i].tampilkanInfo();
+            }
         }
     }
 }
