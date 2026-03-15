@@ -2,8 +2,8 @@
 ====================================================
 TUGAS OOP PLAYLIST MUSIK
 Nama Kelompok :
-1. Arti Suryaning Tyas - (NIM)
-2. Alviyan Syafriansyah Matondang - (NIM)
+1. Arti Suryaning Tyas - 2902724341
+2. Alviyan Syafriansyah Matondang - 2902730565
 3. Hilman Permana - 2902727532
 4. Andika Indra Kirana - 2602204405
 
@@ -12,51 +12,34 @@ Program : Sistem Manajemen Playlist Musik
 */
 
 // Class Lagu untuk merepresentasikan setiap lagu dalam playlist
+
+import java.util.Scanner;
+
+// Class Lagu
 class Lagu {
 
-    // Atribut lagu (enkapsulasi → private)
     private String judul;
     private String artis;
     private double durasi;
 
-    // Constructor untuk menginisialisasi objek Lagu
     public Lagu(String judul, String artis, double durasi) {
         this.judul = judul;
         this.artis = artis;
         this.durasi = durasi;
     }
 
-    // Getter untuk mengambil judul lagu
     public String getJudul() {
         return judul;
     }
 
-    // Setter untuk mengubah judul lagu
-    public void setJudul(String judul) {
-        this.judul = judul;
-    }
-
-    // Getter untuk mengambil nama artis
     public String getArtis() {
         return artis;
     }
 
-    // Setter untuk mengubah nama artis
-    public void setArtis(String artis) {
-        this.artis = artis;
-    }
-
-    // Getter untuk mengambil durasi lagu
     public double getDurasi() {
         return durasi;
     }
 
-    // Setter untuk mengubah durasi lagu
-    public void setDurasi(double durasi) {
-        this.durasi = durasi;
-    }
-
-    // Method untuk menampilkan informasi lengkap lagu
     public void tampilkanInfo() {
         System.out.println("Judul  : " + judul);
         System.out.println("Artis  : " + artis);
@@ -66,11 +49,13 @@ class Lagu {
 }
 
 
+// Class User
 class User {
+
     private String nama;
     private String email;
     private String password;
-    private String akses; // Akses pengguna (misalnya: "admin", "user")
+    private String akses;
 
     public User(String nama, String email, String password, String akses) {
         this.nama = nama;
@@ -79,92 +64,171 @@ class User {
         this.akses = akses;
     }
 
-    public String getNama(){
-        return nama;
-    }
-
-    public void setNama(String nama){
-        this.nama = nama;
-    }
-
-    public String getEmail(){
-        return email;
-    }
-
-    public void setEmail(String email){
-        this.email = email;
-    }
-
-    public String getPassword(){
-        return password;
-    }
-
-    public void setPassword(String password){
-        this.password = password;
-    }
-
-    // Method untu(k menampilkan informasi akses pengguna
     public void tampilkanAkses(){
         System.out.println("Nama User : " + nama);
         System.out.println("Akses User : " + akses);
         System.out.println("--------------------------");
     }
 }
-// Class Admin sebagai turunan dari User
+
+
+// Class Admin
 class Admin extends User {
 
     public Admin(String nama, String email, String password) {
         super(nama, email, password, "Admin");
     }
-    // Override method dari class User
+
     @Override
     public void tampilkanAkses(){
-        System.out.println("Admin memiliki akses untuk menambahkan lagu.");
     }
 
-    // Method menambahkan lagu
     public void tambahLagu(Lagu[] playlist, Lagu laguBaru, int index) {
 
-        if (index < playlist.length) {
+        if (index < playlist.length && playlist[index] == null) {
             playlist[index] = laguBaru;
-            System.out.println("Admin menambahkan lagu: " + laguBaru.getJudul());
+            System.out.println("Lagu berhasil ditambahkan: " + laguBaru.getJudul());
         } else {
-            System.out.println("Playlist sudah penuh.");
+            System.out.println("Slot playlist sudah terisi atau index tidak valid.");
         }
     }
 }
 
-// Class utama untuk menjalankan program
-public class PlaylistOOP {
 
-    public static void main(String[] args) {
+// Class Member
+class Member extends User {
 
-        // Array untuk menyimpan kumpulan lagu (playlist)
-        Lagu[] playlist = new Lagu[7];
+    public Member(String nama, String email, String password) {
+        super(nama, email, password, "Member");
+    }
 
-        // Menambahkan lagu ke dalam playlist
-        playlist[0] = new Lagu("Hati-Hati di Jalan", "Tulus", 4.2);
-        playlist[1] = new Lagu("Sial", "Mahalini", 4.0);
-        playlist[2] = new Lagu("Komang", "Raim Laode", 3.9);
-        playlist[3] = new Lagu("Tak Segampang Itu", "Anggi Marito", 4.1);
-        playlist[4] = new Lagu("Melukis Senja", "Budi Doremi", 4.3);
+    @Override
+    public void tampilkanAkses(){
+        System.out.println("Member hanya dapat melihat playlist.");
+    }
 
-        // Admin menambahkan lagu
-        Admin admin = new Admin("Admin", "Admin@gmail.com", "123");
-        
-        admin.tampilkanAkses();
-        
-        admin.tambahLagu(playlist, new Lagu("Evaluasi", "Hindia", 4.5),5);
-        admin.tambahLagu(playlist, new Lagu("Blue", "Yung kai", 3.8),6);
-        System.out.println();
+    public void lihatPlaylist(Lagu[] playlist) {
 
-        // Menampilkan semua lagu dalam playlist
-        System.out.println("=== PLAYLIST LAGU ===");
+        System.out.println("=== PLAYLIST UNTUK MEMBER ===");
 
         for (int i = 0; i < playlist.length; i++) {
             if (playlist[i] != null) {
                 playlist[i].tampilkanInfo();
             }
         }
+    }
+}
+
+
+// Class Main
+public class PlaylistOOP {
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        Lagu[] playlist = new Lagu[7];
+
+        playlist[0] = new Lagu("Hati-Hati di Jalan", "Tulus", 4.2);
+        playlist[1] = new Lagu("Sial", "Mahalini", 4.0);
+        playlist[2] = new Lagu("Komang", "Raim Laode", 3.9);
+        playlist[3] = new Lagu("Tak Segampang Itu", "Anggi Marito", 4.1);
+        playlist[4] = new Lagu("Melukis Senja", "Budi Doremi", 4.3);
+
+        boolean jalan = true;
+
+        while (jalan) {
+
+            System.out.println("\n===== LOGIN SISTEM PLAYLIST =====");
+            System.out.println("1. Admin");
+            System.out.println("2. Member");
+            System.out.println("3. Keluar");
+            System.out.print("Pilih login: ");
+            int pilihan = input.nextInt();
+            input.nextLine();
+
+            if (pilihan == 1) {
+
+                Admin admin = new Admin("Admin", "admin@gmail.com", "123");
+                admin.tampilkanAkses();
+
+                boolean menuAdmin = true;
+
+                while (menuAdmin) {
+
+                    System.out.println("\n===== MENU ADMIN =====");
+                    System.out.println("1. Tambah Lagu");
+                    System.out.println("2. Lihat Playlist");
+                    System.out.println("3. Back");
+                    System.out.print("Pilih menu: ");
+                    int menu = input.nextInt();
+                    input.nextLine();
+
+                    if (menu == 1) {
+
+                        System.out.print("Masukkan Judul Lagu: ");
+                        String judul = input.nextLine();
+
+                        System.out.print("Masukkan Artis: ");
+                        String artis = input.nextLine();
+
+                        System.out.print("Masukkan Durasi (menit): ");
+                        double durasi = input.nextDouble();
+
+                        System.out.print("Masukkan index playlist (0-6): ");
+                        int index = input.nextInt();
+                        input.nextLine();
+
+                        Lagu laguBaru = new Lagu(judul, artis, durasi);
+                        admin.tambahLagu(playlist, laguBaru, index);
+                    }
+
+                    else if (menu == 2) {
+
+                        System.out.println("\n=== PLAYLIST ===");
+
+                        for (Lagu lagu : playlist) {
+                            if (lagu != null) {
+                                lagu.tampilkanInfo();
+                            }
+                        }
+                    }
+
+                    else if (menu == 3) {
+                        menuAdmin = false;
+                    }
+
+                    else {
+                        System.out.println("Menu tidak tersedia.");
+                    }
+
+                }
+
+            }
+
+            else if (pilihan == 2) {
+
+                Member member = new Member("User", "user@gmail.com", "123");
+
+                member.tampilkanAkses();
+                member.lihatPlaylist(playlist);
+
+                System.out.println("Tekan enter untuk kembali...");
+                input.nextLine();
+            }
+
+            else if (pilihan == 3) {
+
+                jalan = false;
+                System.out.println("Program selesai.");
+
+            }
+
+            else {
+                System.out.println("Pilihan tidak tersedia.");
+            }
+
+        }
+
     }
 }
