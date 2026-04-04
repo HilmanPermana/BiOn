@@ -3,11 +3,12 @@
  * TUGAS KELOMPOK 2 - ARRAYS AND ITS OPERATIONS
  * ================================================
  * Nama Kelompok:
- * 1. [Nama Anggota 1] - [NIM 1]
- * 2. [Nama Anggota 2] - [NIM 2]
- * 3. [Nama Anggota 3] - [NIM 3]
+ * 1. [Alviyan Syafriansah Matondang] - [2902730565]
+ * 2. [Andika Indra Kirana] - [2602204405]
+ * 3. [Arti Suryaning Tyas] - [2902724341]
+ * 4. [Hilman Permana] – [2902727532]
  * 
- * Kelas: [Kode Kelas]
+ * Kelas: LUCA - LEC  
  * Mata Kuliah: Data Structures
  * ================================================
  */
