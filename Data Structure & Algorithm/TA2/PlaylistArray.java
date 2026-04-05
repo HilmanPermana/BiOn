@@ -237,14 +237,10 @@ public class PlaylistArray {
         
         // Linear Search: mencari elemen secara berurutan dari awal hingga akhir
         boolean ditemukan = false;
-        int indexDitemukan = -1;
-        
         for (int i = 0; i < jumlahLagu; i++) {
             // Pencarian menggunakan contains untuk partial match (case-insensitive)
             if (playlist[i].getJudul().toLowerCase().contains(judulCari.toLowerCase())) {
                 ditemukan = true;
-                indexDitemukan = i;
-                
                 System.out.println("\n✓ Lagu ditemukan pada posisi #" + (i + 1));
                 System.out.println("----------------------------------------");
                 playlist[i].tampilkanInfo();
