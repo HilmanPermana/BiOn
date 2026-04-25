@@ -37,8 +37,7 @@ public class TextEditor {
             System.out.println("Tidak bisa redo!");
         }
     }
-
-    // Getter (biar aman, tidak akses langsung)
+    
     public String getText() {
         return currentText;
     }
