@@ -1,3 +1,4 @@
+package Perpustakaan;
 public class LinkedList {
     Buku head;
 

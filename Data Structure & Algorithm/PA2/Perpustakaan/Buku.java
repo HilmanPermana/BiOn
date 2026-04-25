@@ -1,3 +1,4 @@
+package Perpustakaan;
 public class Buku {
     String kode;
     String judul;
